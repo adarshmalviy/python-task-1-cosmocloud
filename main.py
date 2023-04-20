@@ -1,3 +1,5 @@
+# import pandas as pd
+
 list_1 = [
     {"id": "1", "name": "Shrey", "age": 25},
     {"id": "3", "age": 10, "name": "Hello"},
@@ -18,15 +20,29 @@ list_2 = [
 
 
 def merge_lists(list_1, list_2) -> list:
-    """
-    Complete this function, by merging the information from list_1 and list_2
-    to create a new list, which has all the information about each student from
-    both lists in one single dict.
+    # df1 = pd.DataFrame(list1)
+    # df2 = pd.DataFrame(list2)
+    # merged_df = pd.merge(df1, df2, on='id', how='outer')
+    # merged_list = merged_df.to_dict(orient='records')
 
-    - Both lists are unsorted
-    - Both lists can have missing values (for ex list_2 has missing id=2)
-    """
-    # return list_3
+    # return merged_list
+
+    student_ids = set()
+    result = []
+    for student in list_1:
+        student_ids.add(student['id'])
+    for student in list_2:
+        student_ids.add(student['id'])
+
+    for student_id in student_ids:
+        merged_student = {}
+        for student in list_1 + list_2:
+            if student['id'] == student_id:
+                merged_student.update(student)
+        result.append(merged_student)
+
+    return result
 
 
 list_3 = merge_lists(list_1, list_2)
+# print(list_3)
